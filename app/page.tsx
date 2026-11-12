@@ -13,29 +13,29 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="grain relative overflow-hidden bg-ink text-white">
-        <div className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-sky/25 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-48 right-0 h-[30rem] w-[30rem] rounded-full bg-orange/20 blur-3xl" />
+      <section className="grain-light relative overflow-hidden bg-gradient-to-b from-paper to-white text-ink">
+        <div className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-sky/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-48 right-0 h-[30rem] w-[30rem] rounded-full bg-sun/25 blur-3xl" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-28 pt-14 lg:grid-cols-[1.1fr_1fr] lg:px-10 lg:pb-40 lg:pt-20">
           <div className="fade-up">
-            <p className="eyebrow !text-sun">Your print. Our passion. Nationwide delivery.</p>
+            <p className="eyebrow">Your print. Our passion. Nationwide delivery.</p>
             <h1 className="display mt-5 text-6xl sm:text-7xl lg:text-8xl">
               DTF printing.
               <br />
-              <span className="bg-gradient-to-r from-orange via-sun to-leaf bg-clip-text text-transparent">Made easy.</span>
+              <span className="bg-gradient-to-r from-orange via-leaf to-sky bg-clip-text text-transparent">Made easy.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
               Premium-quality DTF prints at competitive prices. Same-day printing, next-day courier options and collection points across South Africa.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/order" className="btn-sun">
                 Order your prints <Icon name="arrow" className="h-4 w-4" />
               </Link>
-              <Link href="/#pricing" className="btn-outline">
+              <Link href="/#pricing" className="btn-outline-ink">
                 View our pricing
               </Link>
             </div>
-            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-white/80">
+            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-ink/80">
               <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> From {rand(from)} per metre</li>
               <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> {SHEET.widthMm} mm gang sheets</li>
               <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> Bulk discounts</li>
@@ -43,15 +43,15 @@ export default function Home() {
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_rgba(0,0,0,0.5)] ring-1 ring-white/10">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_rgba(13,17,23,0.22)] ring-1 ring-line">
               <Image src="/images/print-sunflower.jpg" alt="A full-colour sunflower design printing on DTF film" fill priority sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover" />
             </div>
-            <div className="absolute -bottom-8 -left-4 w-[46%] overflow-hidden rounded-2xl border-4 border-ink shadow-2xl sm:-left-10">
+            <div className="absolute -bottom-8 -left-4 w-[46%] overflow-hidden rounded-2xl border-4 border-white shadow-2xl sm:-left-10">
               <Image src="/images/work-sports-shirts.jpg" alt="Sports shirts printed with DTF transfers" width={1200} height={1600} sizes="20vw" className="aspect-square object-cover" />
             </div>
-            <div className="absolute -right-2 top-8 rounded-2xl bg-white px-5 py-4 text-ink shadow-2xl sm:-right-6">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted">Bulk price</p>
-              <p className="font-display text-3xl font-black">{rand(from)}<span className="text-sm font-bold text-muted">/m</span></p>
+            <div className="absolute -right-2 top-8 rounded-2xl bg-ink px-5 py-4 text-white shadow-2xl sm:-right-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-sun">Bulk price</p>
+              <p className="font-display text-3xl font-black">{rand(from)}<span className="text-sm font-bold text-white/60">/m</span></p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="bg-paper py-24 lg:py-32">
+      <section id="how-it-works" className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-5 lg:px-10">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:items-center">
             <div data-reveal>
@@ -104,7 +104,7 @@ export default function Home() {
             </div>
             <ol className="grid gap-4 sm:grid-cols-2" data-reveal-group>
               {STEPS.map((s, i) => (
-                <li key={s.title} className="rounded-3xl bg-white p-7 ring-1 ring-line">
+                <li key={s.title} className="rounded-3xl bg-paper p-7">
                   <span className="font-display text-5xl font-black text-transparent [-webkit-text-stroke:2px_var(--orange)]">0{i + 1}</span>
                   <h3 className="mt-3 text-lg font-extrabold">{s.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
@@ -116,12 +116,12 @@ export default function Home() {
       </section>
 
       {/* Collection points */}
-      <section id="collection-points" className="grain bg-ink py-24 text-white lg:py-32">
+      <section id="collection-points" className="bg-paper py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-5 lg:px-10">
           <div className="max-w-2xl" data-reveal>
-            <p className="eyebrow !text-sun">Nationwide collection points</p>
+            <p className="eyebrow">Nationwide collection points</p>
             <h2 className="heading mt-4">Collect close to home. Anywhere in SA.</h2>
-            <p className="mt-5 text-white/70">Find your nearest collection point in all nine provinces, or choose courier delivery to your door.</p>
+            <p className="mt-5 text-muted">Find your nearest collection point in all nine provinces, or choose courier delivery to your door.</p>
           </div>
           <div className="mt-14" data-reveal>
             <CollectionMap />
@@ -153,15 +153,15 @@ export default function Home() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-          <div className="flex flex-col justify-between rounded-3xl bg-ink p-8 text-white sm:col-span-2 lg:col-span-1">
+          <div className="flex flex-col justify-between rounded-3xl bg-paper p-8 sm:col-span-2 lg:col-span-1">
             <div>
-              <p className="eyebrow !text-sun">See it in action</p>
+              <p className="eyebrow">See it in action</p>
               <p className="display mt-4 text-4xl">Printed in-house.</p>
-              <p className="mt-4 text-sm leading-relaxed text-white/70">
+              <p className="mt-4 text-sm leading-relaxed text-muted">
                 Every transfer is printed on our own DTF printers. Orders approved before our daily cut-off qualify for same-day printing.
               </p>
             </div>
-            <Link href="/order" className="btn-sun mt-8 self-start">
+            <Link href="/order" className="btn-ink mt-8 self-start">
               Order your prints <Icon name="arrow" className="h-4 w-4" />
             </Link>
           </div>

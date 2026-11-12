@@ -25,7 +25,7 @@ export default function CollectionMap() {
 
   return (
     <div className="grid items-start gap-8 lg:grid-cols-[1.35fr_1fr]">
-      <div className="relative rounded-3xl bg-ink-soft p-4 sm:p-8">
+      <div className="relative rounded-3xl bg-white p-4 shadow-[0_24px_60px_rgba(13,17,23,0.08)] ring-1 ring-line sm:p-8">
         <svg viewBox={MAP_VIEWBOX} className="h-auto w-full" role="group" aria-label="Map of South Africa's provinces">
           {PROVINCE_SHAPES.map((p) => {
             const name = p.name as Province;
@@ -63,18 +63,18 @@ export default function CollectionMap() {
             </text>
           ))}
         </svg>
-        <p className="mt-3 text-center text-xs text-white/50">Tap a province to see its collection points</p>
+        <p className="mt-3 text-center text-xs text-muted">Tap a province to see its collection points</p>
       </div>
 
       <div>
-        <label htmlFor="province" className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+        <label htmlFor="province" className="text-xs font-bold uppercase tracking-[0.2em] text-muted">
           Select your province
         </label>
         <select
           id="province"
           value={selected}
           onChange={(e) => setSelected(e.target.value as Province)}
-          className="mt-2 w-full rounded-xl border border-white/15 bg-ink-soft px-4 py-3.5 text-base font-semibold text-white outline-none focus:border-sun"
+          className="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3.5 text-base font-semibold text-ink outline-none focus:border-ink"
         >
           {PROVINCES.map((p) => (
             <option key={p} value={p}>
@@ -86,33 +86,33 @@ export default function CollectionMap() {
         <div className="mt-6 space-y-4" aria-live="polite">
           {points.length ? (
             points.map((pt) => (
-              <div key={pt.name} className="rounded-2xl border border-white/10 bg-ink-soft p-6">
-                <p className="text-lg font-extrabold text-white">{pt.name}</p>
-                <p className="mt-2 flex gap-2 text-sm text-white/75">
-                  <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-sun" /> {pt.address}
+              <div key={pt.name} className="rounded-2xl bg-white p-6 ring-1 ring-line">
+                <p className="text-lg font-extrabold">{pt.name}</p>
+                <p className="mt-2 flex gap-2 text-sm text-muted">
+                  <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-orange" /> {pt.address}
                 </p>
-                <p className="mt-1.5 flex gap-2 text-sm text-white/75">
-                  <Icon name="clock" className="mt-0.5 h-4 w-4 shrink-0 text-sun" /> {pt.hours}
+                <p className="mt-1.5 flex gap-2 text-sm text-muted">
+                  <Icon name="clock" className="mt-0.5 h-4 w-4 shrink-0 text-orange" /> {pt.hours}
                 </p>
-                <p className="mt-1.5 flex gap-2 text-sm text-white/75">
-                  <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-sun" /> {pt.phone}
+                <p className="mt-1.5 flex gap-2 text-sm text-muted">
+                  <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-orange" /> {pt.phone}
                 </p>
-                <a href={pt.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-sun hover:underline">
+                <a href={pt.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-orange hover:underline">
                   Get directions <Icon name="arrow" className="h-4 w-4" />
                 </a>
               </div>
             ))
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/20 bg-ink-soft p-6">
-              <p className="text-lg font-extrabold text-white">{selected} collection points coming soon</p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
+            <div className="rounded-2xl border-2 border-dashed border-line bg-white p-6">
+              <p className="text-lg font-extrabold">{selected} collection points coming soon</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 Our collection network is growing. In the meantime we courier your prints anywhere in {selected}.
               </p>
               <a
                 href={whatsappLink(`Hi DTF Nation, I'm in ${selected}. Where is my nearest collection point?`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-sun hover:underline"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-orange hover:underline"
               >
                 <WhatsAppIcon className="h-4 w-4" /> Ask about {selected}
               </a>
@@ -120,7 +120,7 @@ export default function CollectionMap() {
           )}
         </div>
 
-        <p className="mt-6 text-sm text-white/60">
+        <p className="mt-6 text-sm text-muted">
           {COLLECTION_POINTS.length
             ? `${COLLECTION_POINTS.length} collection points nationwide, with more being added.`
             : "Courier delivery available nationwide while our collection points are being added."}

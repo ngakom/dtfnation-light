@@ -77,6 +77,11 @@ body {
   background-size: 18px 18px;
 }
 
+.grain-light {
+  background-image: radial-gradient(rgba(13, 17, 23, 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
 .fade-up {
   animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }

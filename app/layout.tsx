@@ -12,7 +12,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const viewport: Viewport = {
   colorScheme: "only light",
-  themeColor: "#0d1117",
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {

@@ -12,15 +12,15 @@ export const metadata: Metadata = {
 export default function OrderPage() {
   return (
     <>
-      <section className="grain bg-ink text-white">
+      <section className="grain-light bg-gradient-to-b from-paper to-white">
         <div className="mx-auto max-w-7xl px-5 py-16 lg:px-10 lg:py-20">
-          <p className="eyebrow !text-sun">Order DTF prints</p>
+          <p className="eyebrow">Order DTF prints</p>
           <h1 className="display mt-4 text-5xl sm:text-7xl">Order your prints.</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/75">Choose your metres, see your price instantly, and send your gang sheet straight to us.</p>
+          <p className="mt-5 max-w-2xl text-lg text-muted">Choose your metres, see your price instantly, and send your gang sheet straight to us.</p>
         </div>
       </section>
 
-      <section className="bg-paper py-14 lg:py-20">
+      <section className="py-10 lg:py-14">
         <div className="mx-auto max-w-7xl px-5 lg:px-10">
           <OrderForm />
         </div>
@@ -38,15 +38,15 @@ export default function OrderPage() {
             ))}
           </ul>
         </div>
-        <div className="rounded-3xl bg-ink p-8 text-white sm:p-10">
-          <p className="eyebrow !text-sun">Contact us</p>
+        <div className="rounded-3xl bg-paper p-8 sm:p-10">
+          <p className="eyebrow">Contact us</p>
           <p className="display mt-4 text-4xl">Need help with your order?</p>
-          <p className="mt-4 text-white/70">Talk to {SITE.contactPerson} and the DTF Nation team.</p>
+          <p className="mt-4 text-muted">Talk to {SITE.contactPerson} and the DTF Nation team.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={whatsappLink("Hi DTF Nation, I need help with an order.")} target="_blank" rel="noopener noreferrer" className="btn-sun">
               <WhatsAppIcon /> WhatsApp us
             </a>
-            <a href={`tel:${SITE.phone.tel}`} className="btn-outline">
+            <a href={`tel:${SITE.phone.tel}`} className="btn-outline-ink">
               <Icon name="phone" className="h-4 w-4" /> {SITE.phone.display}
             </a>
           </div>

@@ -47,7 +47,7 @@ export default function OrderForm() {
     <form onSubmit={handleSubmit} className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
       <div className="space-y-8">
         {/* 1. Quantity */}
-        <fieldset className="rounded-3xl bg-white p-6 ring-1 ring-line sm:p-8">
+        <fieldset className="rounded-3xl bg-white p-6 shadow-[0_14px_40px_rgba(13,17,23,0.06)] ring-1 ring-line sm:p-8">
           <legend className="float-left mb-5 w-full font-display text-xl font-black uppercase">1. How many metres?</legend>
           <div className="clear-both flex items-center gap-3">
             <button type="button" onClick={() => setMetres((m) => Math.max(1, m - 1))} className="h-12 w-12 rounded-full border-2 border-ink text-xl font-black" aria-label="One metre less">
@@ -79,7 +79,7 @@ export default function OrderForm() {
         </fieldset>
 
         {/* 2. Delivery */}
-        <fieldset className="rounded-3xl bg-white p-6 ring-1 ring-line sm:p-8">
+        <fieldset className="rounded-3xl bg-white p-6 shadow-[0_14px_40px_rgba(13,17,23,0.06)] ring-1 ring-line sm:p-8">
           <legend className="float-left mb-5 w-full font-display text-xl font-black uppercase">2. Courier or collection?</legend>
           <div className="clear-both grid gap-3 sm:grid-cols-2">
             {(["courier", "collection"] as const).map((opt) => (
@@ -121,7 +121,7 @@ export default function OrderForm() {
         </fieldset>
 
         {/* 3. Details */}
-        <fieldset className="rounded-3xl bg-white p-6 ring-1 ring-line sm:p-8">
+        <fieldset className="rounded-3xl bg-white p-6 shadow-[0_14px_40px_rgba(13,17,23,0.06)] ring-1 ring-line sm:p-8">
           <legend className="float-left mb-5 w-full font-display text-xl font-black uppercase">3. Your details</legend>
           <div className="clear-both grid gap-5 sm:grid-cols-2">
             <div>
