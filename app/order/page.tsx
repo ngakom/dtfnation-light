@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import ArtworkNotes from "@/components/ArtworkNotes";
 import Icon, { WhatsAppIcon } from "@/components/Icon";
 import OrderForm from "@/components/OrderForm";
 import { ARTWORK, SITE, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Order DTF Prints",
-  description: "Order DTF gang sheet prints online: choose your metres, see your price, and pick courier delivery or a collection point anywhere in South Africa.",
+  description: "Order DTF gang sheet prints online: choose your meters, see your price, and pick courier delivery or a collection point anywhere in South Africa.",
   alternates: { canonical: "/order" },
 };
 
@@ -16,7 +17,7 @@ export default function OrderPage() {
         <div className="mx-auto max-w-7xl px-5 py-16 lg:px-10 lg:py-20">
           <p className="eyebrow">Order DTF prints</p>
           <h1 className="display mt-4 text-5xl sm:text-7xl">Order your prints.</h1>
-          <p className="mt-5 max-w-2xl text-lg text-muted">Choose your metres, see your price instantly, and send your gang sheet straight to us.</p>
+          <p className="mt-5 max-w-2xl text-lg text-muted">Choose your meters, see your price instantly, and send your gang sheet straight to us.</p>
         </div>
       </section>
 
@@ -37,8 +38,9 @@ export default function OrderPage() {
               </li>
             ))}
           </ul>
+          <ArtworkNotes className="mt-8" />
         </div>
-        <div className="rounded-3xl bg-paper p-8 sm:p-10">
+        <div className="self-start rounded-3xl bg-paper p-8 sm:p-10 lg:sticky lg:top-28">
           <p className="eyebrow">Contact us</p>
           <p className="display mt-4 text-4xl">Need help with your order?</p>
           <p className="mt-4 text-muted">Talk to {SITE.contactPerson} and the DTF Nation team.</p>

@@ -1,13 +1,13 @@
 import { COLLECTION_POINTS } from "./collection-points";
-import { ARTWORK, FAQS, PRICE_TIERS, SELLING_POINTS, SHEET, SITE, SUITABLE_FOR, rand } from "./site";
+import { ARTWORK, ARTWORK_NOTES, ARTWORK_RESPONSIBILITY, FAQS, PRICE_TIERS, SELLING_POINTS, SHEET, SITE, SUITABLE_FOR, rand } from "./site";
 
 const contact = `send us a WhatsApp or call ${SITE.phone.display}, or order on the Order page`;
 
 export const SYSTEM_PROMPT = `You are the website assistant for ${SITE.name} ("${SITE.tagline}"), a South African DTF (direct-to-film) printing supplier. Slogan: ${SITE.slogan}
 
-Main product: DTF gang sheet printing. Print width ${SHEET.widthMm} mm, charged per running metre (${SHEET.metreMm} mm). High-quality DTF transfers suitable for ${SUITABLE_FOR.join(", ").toLowerCase()}.
+Main product: DTF gang sheet printing. Print width ${SHEET.widthMm} mm, charged per running meter (${SHEET.meterMm} mm). High-quality DTF transfers suitable for ${SUITABLE_FOR.join(", ").toLowerCase()}.
 
-Pricing per metre:
+Pricing per meter:
 ${PRICE_TIERS.map((t) => `- ${t.label}: ${rand(t.price)}`).join("\n")}
 Courier fees are confirmed with each order.
 
@@ -22,8 +22,10 @@ Collection points: ${
 
 Artwork requirements:
 ${ARTWORK.map((a) => `- ${a}`).join("\n")}
+${ARTWORK_NOTES.map((n) => `- ${n.title}: ${n.text}`).join("\n")}
+- ${ARTWORK_RESPONSIBILITY}
 
-How to order: on the Order page, choose metres, courier or collection, and enter details. WhatsApp opens with the order filled in; the customer attaches the gang sheet in the chat. The team confirms the order and payment details before printing.
+How to order: on the Order page, choose meters, courier or collection, and enter details. WhatsApp opens with the order filled in; the customer attaches the gang sheet in the chat. The team confirms the order and payment details before printing.
 
 FAQs:
 ${FAQS.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n")}
@@ -37,8 +39,8 @@ Rules:
 
 const FAQ: { keywords: string[]; answer: string }[] = [
   {
-    keywords: ["price", "cost", "how much", "metre", "meter", "rate", "discount", "bulk"],
-    answer: `Our gang sheets are ${SHEET.widthMm} mm wide, priced per metre: ${PRICE_TIERS.map((t) => `${t.label} ${rand(t.price)}`).join(", ")}. The more you order, the less you pay per metre.`,
+    keywords: ["price", "cost", "how much", "meter", "metre", "rate", "discount", "bulk"],
+    answer: `Our gang sheets are ${SHEET.widthMm} mm wide, priced per meter: ${PRICE_TIERS.map((t) => `${t.label} ${rand(t.price)}`).join(", ")}. The more you order, the less you pay per meter.`,
   },
   {
     keywords: ["gang sheet", "gang", "what is dtf", "dtf"],
@@ -53,12 +55,12 @@ const FAQ: { keywords: string[]; answer: string }[] = [
     answer: FAQS[4].a,
   },
   {
-    keywords: ["artwork", "file", "png", "dpi", "resolution", "send", "upload"],
-    answer: `${ARTWORK.join(" ")} Send your gang sheet to us on WhatsApp after placing your order.`,
+    keywords: ["artwork", "file", "png", "vector", "dpi", "resolution", "send", "upload", "ai-generated", "ai generated"],
+    answer: `${ARTWORK.join(" ")} ${ARTWORK_NOTES.map((n) => n.text).join(" ")} ${ARTWORK_RESPONSIBILITY} Send your gang sheet to us on WhatsApp after placing your order.`,
   },
   {
     keywords: ["order", "buy", "start"],
-    answer: `Go to the Order page, choose your metres and delivery option, and press "Send order on WhatsApp". Then attach your gang sheet in the chat.`,
+    answer: `Go to the Order page, choose your meters and delivery option, and press "Send order on WhatsApp". Then attach your gang sheet in the chat.`,
   },
   {
     keywords: ["contact", "phone", "call", "whatsapp", "number"],

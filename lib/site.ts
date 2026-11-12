@@ -6,27 +6,27 @@ export const SITE = {
   slogan: "Your print. Our passion. Nationwide delivery.",
   // TODO: replace with the live domain once registered.
   url: "https://www.dtfnation.co.za",
-  contactPerson: "Corlia Pieterse",
-  phone: { display: "074 612 8813", tel: "+27746128813" },
-  whatsapp: "27746128813",
+  contactPerson: "Andre Pieterse",
+  phone: { display: "062 604 2053", tel: "+27626042053" },
+  whatsapp: "27626042053",
 };
 
 export const whatsappLink = (text?: string) =>
   `https://wa.me/${SITE.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
-/** Gang sheet size: 560 mm wide, priced per running metre (1000 mm). */
-export const SHEET = { widthMm: 560, metreMm: 1000 };
+/** Gang sheet size: 570 mm wide, priced per running meter (1000 mm). */
+export const SHEET = { widthMm: 570, meterMm: 1000 };
 
-/** Price per metre by order size. Each tier applies from `from` metres up to the next tier. */
+/** Price per meter by order size. Each tier applies from `from` meters up to the next tier. */
 export const PRICE_TIERS = [
-  { from: 0, label: "0 – 2 metres", price: 250 },
-  { from: 2, label: "2 – 4 metres", price: 220 },
-  { from: 5, label: "5 metres and above", price: 180 },
+  { from: 0, label: "0 – 2 meters", price: 250 },
+  { from: 2, label: "2 – 4 meters", price: 220 },
+  { from: 5, label: "5 meters and above", price: 180 },
 ];
 
-export function priceFor(metres: number) {
-  const tier = [...PRICE_TIERS].reverse().find((t) => metres >= t.from) ?? PRICE_TIERS[0];
-  return { tier, perMetre: tier.price, total: Math.round(metres * tier.price * 100) / 100 };
+export function priceFor(meters: number) {
+  const tier = [...PRICE_TIERS].reverse().find((t) => meters >= t.from) ?? PRICE_TIERS[0];
+  return { tier, perMeter: tier.price, total: Math.round(meters * tier.price * 100) / 100 };
 }
 
 export const rand = (n: number) => `R${n.toLocaleString("en-ZA", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
@@ -51,19 +51,34 @@ export const SELLING_POINTS = [
 
 export const STEPS = [
   { title: "Prepare your gang sheet", text: `Lay out your designs on a ${SHEET.widthMm} mm wide, print-ready gang sheet.` },
-  { title: "Place your order", text: "Choose your metres, see your price and pick courier delivery or collection." },
-  { title: "Send your artwork", text: "Send your gang sheet to us on WhatsApp. We check it and confirm your order." },
+  { title: "Place your order", text: "Choose your meters, see your price and pick courier delivery or collection." },
+  { title: "Send your artwork", text: "Send your gang sheet to us on WhatsApp. Vector files are best. We check it and confirm your order." },
   { title: "We print, you press", text: "Approved orders before cut-off are printed the same day, then couriered or sent to your collection point." },
 ];
 
 export const SUITABLE_FOR = ["T-shirts", "Golf shirts", "Hoodies", "Workwear", "Caps", "Bags", "Sportswear", "Other textiles"];
 
 export const ARTWORK = [
-  `Gang sheet width: ${SHEET.widthMm} mm. Length is charged per running metre (${SHEET.metreMm} mm).`,
-  "Supply print-ready files with a transparent background (PNG recommended).",
+  `Gang sheet width: ${SHEET.widthMm} mm. Length is charged per running meter (${SHEET.meterMm} mm).`,
+  "Vector files are best for DTF. PNG files with a transparent background also print well.",
   "Use high-resolution artwork (300 dpi at print size recommended) for sharp, clean transfers.",
   "Check spelling, colours and sizes before sending. We print exactly what you supply.",
 ];
+
+/** Corlia's wording, shown with the artwork requirements. */
+export const ARTWORK_NOTES = [
+  {
+    title: "Important: AI-generated artwork",
+    text: "AI-generated designs are not always print-ready. They may contain hidden pixels, ghosting, blurred edges, unwanted backgrounds or incorrect details, which can affect print quality.",
+  },
+  {
+    title: "Please note",
+    text: "Low-resolution artwork may result in pixelation and poor print quality. Always supply the highest-quality original file available.",
+  },
+];
+
+export const ARTWORK_RESPONSIBILITY =
+  "Artwork quality is the customer's responsibility. Design cleanup or adjustments may incur additional charges.";
 
 export const GALLERY = [
   { src: "/images/work-sports-shirts.jpg", alt: "Green and white sports shirts with a team logo and numbers printed in DTF", w: 1200, h: 1600 },
@@ -88,11 +103,11 @@ export const FAQS = [
   },
   {
     q: "What is a gang sheet?",
-    a: `A gang sheet is one ${SHEET.widthMm} mm wide sheet with many designs placed together, so you pay per metre instead of per design.`,
+    a: `A gang sheet is one ${SHEET.widthMm} mm wide sheet with many designs placed together, so you pay per meter instead of per design.`,
   },
   {
     q: "How much does it cost?",
-    a: `We charge per running metre: ${PRICE_TIERS.map((t) => `${t.label} at ${rand(t.price)} per metre`).join(", ")}. The more metres you order, the less you pay per metre.`,
+    a: `We charge per running meter: ${PRICE_TIERS.map((t) => `${t.label} at ${rand(t.price)} per meter`).join(", ")}. The more meters you order, the less you pay per meter.`,
   },
   {
     q: "How fast will I get my prints?",

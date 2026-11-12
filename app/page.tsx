@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ArtworkNotes from "@/components/ArtworkNotes";
 import CollectionMap from "@/components/CollectionMap";
 import Icon, { WhatsAppIcon } from "@/components/Icon";
 import PricingCards from "@/components/PricingCards";
@@ -36,7 +37,7 @@ export default function Home() {
               </Link>
             </div>
             <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-ink/80">
-              <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> From {rand(from)} per metre</li>
+              <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> From {rand(from)} per meter</li>
               <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> {SHEET.widthMm} mm gang sheets</li>
               <li className="flex items-center gap-2"><Icon name="check" className="h-4 w-4 text-leaf" /> Bulk discounts</li>
             </ul>
@@ -77,9 +78,9 @@ export default function Home() {
       <section id="pricing" className="mx-auto max-w-7xl px-5 py-24 lg:px-10 lg:py-32">
         <div className="mx-auto max-w-2xl text-center" data-reveal>
           <p className="eyebrow">DTF gang sheet pricing</p>
-          <h2 className="heading mt-4">More metres. Better prices.</h2>
+          <h2 className="heading mt-4">More meters. Better prices.</h2>
           <p className="mt-5 text-muted">
-            Every gang sheet is {SHEET.widthMm} mm wide and charged per running metre ({SHEET.metreMm} mm). Order more and the price per metre drops.
+            Every gang sheet is {SHEET.widthMm} mm wide and charged per running meter ({SHEET.meterMm} mm). Order more and the price per meter drops.
           </p>
         </div>
         <div className="mt-16">
@@ -101,6 +102,7 @@ export default function Home() {
               <Link href="/order" className="btn-ink mt-8">
                 Start your order <Icon name="arrow" className="h-4 w-4" />
               </Link>
+              <ArtworkNotes className="mt-10" />
             </div>
             <ol className="grid gap-4 sm:grid-cols-2" data-reveal-group>
               {STEPS.map((s, i) => (

@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     template: "%s | DTF Nation SA",
   },
   description:
-    "Premium-quality DTF gang sheet printing at competitive prices. Same-day printing, next-day courier options and collection points across South Africa. From R180 per metre.",
+    "Premium-quality DTF gang sheet printing at competitive prices. Same-day printing, next-day courier options and collection points across South Africa. From R180 per meter.",
   openGraph: {
     type: "website",
     siteName: SITE.name,
     title: "DTF Nation SA | DTF Printing Made Easy",
-    description: "Same-day printing, next-day courier and nationwide collection points. More metres, better prices.",
+    description: "Same-day printing, next-day courier and nationwide collection points. More meters, better prices.",
     images: [{ url: "/images/print-sunflower.jpg", width: 960, height: 1280, alt: "A full-colour DTF print" }],
     locale: "en_ZA",
   },

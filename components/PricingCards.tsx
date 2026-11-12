@@ -25,7 +25,7 @@ export default function PricingCards() {
             <p className={`text-sm font-bold uppercase tracking-[0.16em] ${featured ? "text-sun" : "text-orange"}`}>{t.label}</p>
             <p className="mt-5 font-display text-6xl font-black tracking-tight">
               {rand(t.price)}
-              <span className={`ml-1 text-base font-bold ${featured ? "text-white/60" : "text-muted"}`}>/ metre</span>
+              <span className={`ml-1 text-base font-bold ${featured ? "text-white/60" : "text-muted"}`}>/ meter</span>
             </p>
             <ul className={`mt-6 flex-1 space-y-2.5 text-sm ${featured ? "text-white/80" : "text-muted"}`}>
               <li className="flex gap-2">

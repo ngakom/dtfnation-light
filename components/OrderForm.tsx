@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Icon, { WhatsAppIcon } from "./Icon";
 import { PROVINCES, pointsIn, type Province } from "@/lib/collection-points";
-import { PRICE_TIERS, SHEET, priceFor, rand, whatsappLink } from "@/lib/site";
+import { ARTWORK_RESPONSIBILITY, PRICE_TIERS, SHEET, priceFor, rand, whatsappLink } from "@/lib/site";
 
 const label = "mb-1.5 block text-sm font-bold text-ink";
 const field =
@@ -12,11 +12,11 @@ const field =
 type Delivery = "courier" | "collection";
 
 export default function OrderForm() {
-  const [metres, setMetres] = useState(1);
+  const [meters, setMeters] = useState(1);
   const [delivery, setDelivery] = useState<Delivery>("courier");
   const [province, setProvince] = useState<Province>("Gauteng");
   const [sent, setSent] = useState(false);
-  const { tier, perMetre, total } = priceFor(metres);
+  const { tier, perMeter, total } = priceFor(meters);
   const points = pointsIn(province);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -25,8 +25,8 @@ export default function OrderForm() {
     const lines = [
       "Hi DTF Nation, I'd like to place an order:",
       "",
-      `Gang sheet: ${metres} m x ${SHEET.widthMm} mm`,
-      `Price: ${rand(perMetre)}/m = ${rand(total)}`,
+      `Gang sheet: ${meters} m x ${SHEET.widthMm} mm`,
+      `Price: ${rand(perMeter)}/m = ${rand(total)}`,
       delivery === "courier"
         ? `Delivery: Courier to ${d.address}, ${province}`
         : `Delivery: Collection in ${province}${d.point ? ` (${d.point})` : ""}`,
@@ -48,25 +48,25 @@ export default function OrderForm() {
       <div className="space-y-8">
         {/* 1. Quantity */}
         <fieldset className="rounded-3xl bg-white p-6 shadow-[0_14px_40px_rgba(13,17,23,0.06)] ring-1 ring-line sm:p-8">
-          <legend className="float-left mb-5 w-full font-display text-xl font-black uppercase">1. How many metres?</legend>
+          <legend className="float-left mb-5 w-full font-display text-xl font-black uppercase">1. How many meters?</legend>
           <div className="clear-both flex items-center gap-3">
-            <button type="button" onClick={() => setMetres((m) => Math.max(1, m - 1))} className="h-12 w-12 rounded-full border-2 border-ink text-xl font-black" aria-label="One metre less">
+            <button type="button" onClick={() => setMeters((m) => Math.max(1, m - 1))} className="h-12 w-12 rounded-full border-2 border-ink text-xl font-black" aria-label="One meter less">
               −
             </button>
-            <label htmlFor="metres" className="sr-only">Metres</label>
+            <label htmlFor="meters" className="sr-only">Meters</label>
             <input
-              id="metres"
+              id="meters"
               type="number"
               min={1}
               step={0.5}
-              value={metres}
-              onChange={(e) => setMetres(Math.max(1, Number(e.target.value) || 1))}
+              value={meters}
+              onChange={(e) => setMeters(Math.max(1, Number(e.target.value) || 1))}
               className="h-12 w-28 rounded-xl border border-line text-center font-display text-2xl font-black outline-none focus:border-ink"
             />
-            <button type="button" onClick={() => setMetres((m) => m + 1)} className="h-12 w-12 rounded-full border-2 border-ink text-xl font-black" aria-label="One metre more">
+            <button type="button" onClick={() => setMeters((m) => m + 1)} className="h-12 w-12 rounded-full border-2 border-ink text-xl font-black" aria-label="One meter more">
               +
             </button>
-            <span className="text-sm text-muted">metres × {SHEET.widthMm} mm</span>
+            <span className="text-sm text-muted">meters × {SHEET.widthMm} mm</span>
           </div>
           <div className="mt-6 grid grid-cols-3 gap-2">
             {PRICE_TIERS.map((t) => (
@@ -155,8 +155,8 @@ export default function OrderForm() {
           <div className="p-7 sm:p-8">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">Order summary</p>
             <dl className="mt-5 space-y-3 text-sm">
-              <div className="flex justify-between"><dt className="text-white/70">Gang sheet</dt><dd className="font-bold">{metres} m × {SHEET.widthMm} mm</dd></div>
-              <div className="flex justify-between"><dt className="text-white/70">Price per metre</dt><dd className="font-bold">{rand(perMetre)}</dd></div>
+              <div className="flex justify-between"><dt className="text-white/70">Gang sheet</dt><dd className="font-bold">{meters} m × {SHEET.widthMm} mm</dd></div>
+              <div className="flex justify-between"><dt className="text-white/70">Price per meter</dt><dd className="font-bold">{rand(perMeter)}</dd></div>
               <div className="flex justify-between"><dt className="text-white/70">Delivery</dt><dd className="font-bold">{delivery === "courier" ? "Courier" : "Collection"}, {province}</dd></div>
             </dl>
             <div className="mt-6 flex items-end justify-between border-t border-white/15 pt-5">
@@ -169,6 +169,10 @@ export default function OrderForm() {
             </button>
             <p className="mt-4 text-xs leading-relaxed text-white/60">
               WhatsApp opens with your order filled in. Attach your print-ready gang sheet in the chat and press send. We&apos;ll confirm your order and payment details before printing.
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-white/60">
+              Vector files are best. {ARTWORK_RESPONSIBILITY}{" "}
+              <a href="#artwork" className="font-semibold text-sun underline underline-offset-2">Artwork requirements</a>
             </p>
             {sent && (
               <p className="mt-4 rounded-xl bg-leaf/15 px-4 py-3 text-sm font-semibold text-leaf" role="status">

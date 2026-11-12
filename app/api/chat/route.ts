@@ -48,7 +48,7 @@ export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
   if (rateLimited(ip)) {
     return Response.json({
-      reply: "You've sent a lot of messages in a short time. Please WhatsApp or call us on 074 612 8813 and our team will assist you.",
+      reply: "You've sent a lot of messages in a short time. Please WhatsApp or call us on 062 604 2053 and our team will assist you.",
     });
   }
 

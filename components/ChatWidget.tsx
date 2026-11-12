@@ -10,7 +10,7 @@ const GREETING: Message = {
     "Hi! I'm the DTF Nation assistant. Ask me about pricing, turnaround, delivery or artwork.",
 };
 
-const SUGGESTIONS = ["How much per metre?", "What is a gang sheet?", "Do you deliver nationwide?"];
+const SUGGESTIONS = ["How much per meter?", "What is a gang sheet?", "Do you deliver nationwide?"];
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function ChatWidget() {
         ...m,
         {
           role: "assistant",
-          content: "Sorry, I couldn't respond just now. Please WhatsApp or call us on 074 612 8813.",
+          content: "Sorry, I couldn't respond just now. Please WhatsApp or call us on 062 604 2053.",
         },
       ]);
     } finally {
