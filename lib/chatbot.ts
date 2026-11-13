@@ -1,7 +1,7 @@
 import { COLLECTION_POINTS } from "./collection-points";
 import { ARTWORK, ARTWORK_NOTES, ARTWORK_RESPONSIBILITY, FAQS, PRICE_TIERS, SELLING_POINTS, SHEET, SITE, SUITABLE_FOR, rand } from "./site";
 
-const contact = `send us a WhatsApp or call ${SITE.phone.display}, or order on the Order page`;
+const contact = `email ${SITE.email}, call or WhatsApp ${SITE.phone.display}, or order on the Order page`;
 
 export const SYSTEM_PROMPT = `You are the website assistant for ${SITE.name} ("${SITE.tagline}"), a South African DTF (direct-to-film) printing supplier. Slogan: ${SITE.slogan}
 
@@ -25,12 +25,12 @@ ${ARTWORK.map((a) => `- ${a}`).join("\n")}
 ${ARTWORK_NOTES.map((n) => `- ${n.title}: ${n.text}`).join("\n")}
 - ${ARTWORK_RESPONSIBILITY}
 
-How to order: on the Order page, choose meters, courier or collection, and enter details. WhatsApp opens with the order filled in; the customer attaches the gang sheet in the chat. The team confirms the order and payment details before printing.
+How to order: on the Order page, choose meters, courier or collection, and enter details, then press "Send order". The order is emailed to ${SITE.email} with an order number. The customer then emails the gang sheet to ${SITE.email} with that order number (large files as a WeTransfer or Google Drive link). The team confirms the order and payment details before printing.
 
 FAQs:
 ${FAQS.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n")}
 
-Contact: ${SITE.contactPerson}, ${SITE.phone.display} (calls and WhatsApp).
+Contact: ${SITE.contactPerson}, ${SITE.phone.display} (calls and WhatsApp), email ${SITE.email}.
 
 Rules:
 - Reply in a friendly, clear and concise tone (1-3 short paragraphs, plain text, no markdown headings or tables, no emojis).
@@ -56,15 +56,15 @@ const FAQ: { keywords: string[]; answer: string }[] = [
   },
   {
     keywords: ["artwork", "file", "png", "vector", "dpi", "resolution", "send", "upload", "ai-generated", "ai generated"],
-    answer: `${ARTWORK.join(" ")} ${ARTWORK_NOTES.map((n) => n.text).join(" ")} ${ARTWORK_RESPONSIBILITY} Send your gang sheet to us on WhatsApp after placing your order.`,
+    answer: `${ARTWORK.join(" ")} ${ARTWORK_NOTES.map((n) => n.text).join(" ")} ${ARTWORK_RESPONSIBILITY} Email your gang sheet to ${SITE.email} with your order number after placing your order.`,
   },
   {
     keywords: ["order", "buy", "start"],
-    answer: `Go to the Order page, choose your meters and delivery option, and press "Send order on WhatsApp". Then attach your gang sheet in the chat.`,
+    answer: `Go to the Order page, choose your meters and delivery option, and press "Send order". Then email your gang sheet to ${SITE.email} with your order number.`,
   },
   {
-    keywords: ["contact", "phone", "call", "whatsapp", "number"],
-    answer: `You can reach ${SITE.contactPerson} on ${SITE.phone.display} (calls and WhatsApp).`,
+    keywords: ["contact", "phone", "call", "whatsapp", "number", "email"],
+    answer: `You can reach ${SITE.contactPerson} on ${SITE.phone.display} (calls and WhatsApp) or email ${SITE.email}.`,
   },
 ];
 

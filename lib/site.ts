@@ -4,11 +4,11 @@ export const SITE = {
   name: "DTF Nation SA",
   tagline: "Direct to Perfection",
   slogan: "Your print. Our passion. Nationwide delivery.",
-  // TODO: replace with the live domain once registered.
   url: "https://www.dtfnation.co.za",
   contactPerson: "Andre Pieterse",
   phone: { display: "062 604 2053", tel: "+27626042053" },
   whatsapp: "27626042053",
+  email: "sales@dtfnation.co.za",
 };
 
 export const whatsappLink = (text?: string) =>
@@ -52,7 +52,7 @@ export const SELLING_POINTS = [
 export const STEPS = [
   { title: "Prepare your gang sheet", text: `Lay out your designs on a ${SHEET.widthMm} mm wide, print-ready gang sheet.` },
   { title: "Place your order", text: "Choose your meters, see your price and pick courier delivery or collection." },
-  { title: "Send your artwork", text: "Send your gang sheet to us on WhatsApp. Vector files are best. We check it and confirm your order." },
+  { title: "Send your artwork", text: "Email your gang sheet to sales@dtfnation.co.za with your order number. Vector files are best. We check it and confirm your order." },
   { title: "We print, you press", text: "Approved orders before cut-off are printed the same day, then couriered or sent to your collection point." },
 ];
 
@@ -119,6 +119,6 @@ export const FAQS = [
   },
   {
     q: "How do I send my artwork?",
-    a: "Place your order on the website, then send your print-ready gang sheet to us on WhatsApp. We confirm your order and payment details before printing.",
+    a: "Place your order on the website, then email your print-ready gang sheet to sales@dtfnation.co.za with your order number. Large files can be sent as a WeTransfer or Google Drive link. We confirm your order and payment details before printing.",
   },
 ];

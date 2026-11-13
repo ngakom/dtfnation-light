@@ -1,29 +1,47 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Icon, { WhatsAppIcon } from "./Icon";
+import Icon from "./Icon";
 import { PROVINCES, pointsIn, type Province } from "@/lib/collection-points";
-import { ARTWORK_RESPONSIBILITY, PRICE_TIERS, SHEET, priceFor, rand, whatsappLink } from "@/lib/site";
+import { ARTWORK_RESPONSIBILITY, PRICE_TIERS, SHEET, SITE, priceFor, rand } from "@/lib/site";
+
+// Web3Forms delivers orders to the inbox the access key was created for (sales@dtfnation.co.za).
+// The key is public by design. Without one, the form opens the customer's email app instead.
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
+
+const mailto = (subject: string, body: string) =>
+  `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+/** Short order number the customer quotes when emailing their artwork, e.g. DTF-1113-4821. */
+function orderNumber() {
+  const now = new Date();
+  const mmdd = `${now.getMonth() + 1}`.padStart(2, "0") + `${now.getDate()}`.padStart(2, "0");
+  return `DTF-${mmdd}-${Math.floor(1000 + Math.random() * 9000)}`;
+}
 
 const label = "mb-1.5 block text-sm font-bold text-ink";
 const field =
   "w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink focus:ring-2 focus:ring-ink/10";
 
 type Delivery = "courier" | "collection";
+type Status = "idle" | "sending" | "sent" | "mailto" | "error";
 
 export default function OrderForm() {
   const [meters, setMeters] = useState(1);
   const [delivery, setDelivery] = useState<Delivery>("courier");
   const [province, setProvince] = useState<Province>("Gauteng");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [order, setOrder] = useState("");
   const { tier, perMeter, total } = priceFor(meters);
   const points = pointsIn(province);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const ref = orderNumber();
+    const subject = `New order ${ref}: ${meters} m – ${d.business || d.name}`;
     const lines = [
-      "Hi DTF Nation, I'd like to place an order:",
+      `Order number: ${ref}`,
       "",
       `Gang sheet: ${meters} m x ${SHEET.widthMm} mm`,
       `Price: ${rand(perMeter)}/m = ${rand(total)}`,
@@ -34,14 +52,34 @@ export default function OrderForm() {
       `Name: ${d.name}`,
       d.business ? `Business: ${d.business}` : null,
       `Phone: ${d.phone}`,
-      d.email ? `Email: ${d.email}` : null,
+      `Email: ${d.email}`,
       d.notes ? `Notes: ${d.notes}` : null,
-      "",
-      "I'll attach my print-ready gang sheet in this chat.",
     ].filter((l) => l !== null);
-    window.open(whatsappLink(lines.join("\n")), "_blank", "noopener");
-    setSent(true);
+    const message = lines.join("\n");
+    setOrder(ref);
+
+    if (!WEB3FORMS_KEY) {
+      window.location.href = mailto(subject, `${message}\n\nI've attached my print-ready gang sheet.`);
+      setStatus("mailto");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: "DTF Nation website", replyto: d.email, message }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.message);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
+
+  const artworkLink = mailto(`Artwork for order ${order}`, `Hi DTF Nation,\n\nPlease find my gang sheet attached for order ${order}.\n\n`);
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
@@ -137,8 +175,8 @@ export default function OrderForm() {
               <input id="phone" name="phone" type="tel" required autoComplete="tel" className={field} />
             </div>
             <div>
-              <label htmlFor="email" className={label}>Email</label>
-              <input id="email" name="email" type="email" autoComplete="email" className={field} />
+              <label htmlFor="email" className={label}>Email *</label>
+              <input id="email" name="email" type="email" required autoComplete="email" className={field} />
             </div>
             <div className="sm:col-span-2">
               <label htmlFor="notes" className={label}>Notes</label>
@@ -164,21 +202,40 @@ export default function OrderForm() {
               <span className="font-display text-5xl font-black text-sun">{rand(total)}</span>
             </div>
             {delivery === "courier" && <p className="mt-2 text-xs text-white/50">Courier fee confirmed with your order.</p>}
-            <button type="submit" className="btn-sun mt-7 w-full">
-              <WhatsAppIcon /> Send order on WhatsApp
-            </button>
-            <p className="mt-4 text-xs leading-relaxed text-white/60">
-              WhatsApp opens with your order filled in. Attach your print-ready gang sheet in the chat and press send. We&apos;ll confirm your order and payment details before printing.
-            </p>
+            {status === "sent" ? (
+              <div className="mt-7 rounded-2xl bg-white/10 p-5" role="status">
+                <p className="font-bold text-leaf">Order {order} sent. Thank you!</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Now email your print-ready gang sheet to <strong className="text-white">{SITE.email}</strong> with your order number. Large files can be sent as a WeTransfer or Google Drive link.
+                </p>
+                <a href={artworkLink} className="btn-sun mt-4 w-full">
+                  <Icon name="mail" className="h-5 w-5" /> Email my artwork
+                </a>
+              </div>
+            ) : (
+              <>
+                <button type="submit" disabled={status === "sending"} className="btn-sun mt-7 w-full disabled:opacity-60">
+                  <Icon name="mail" className="h-5 w-5" /> {status === "sending" ? "Sending…" : "Send order"}
+                </button>
+                <p className="mt-4 text-xs leading-relaxed text-white/60">
+                  Your order is emailed to us with an order number. You&apos;ll then email your gang sheet to {SITE.email}. We&apos;ll confirm your order and payment details before printing.
+                </p>
+              </>
+            )}
+            {status === "mailto" && (
+              <p className="mt-4 rounded-xl bg-leaf/15 px-4 py-3 text-sm font-semibold text-leaf" role="status">
+                Your email app opened with order {order} filled in. Attach your gang sheet and press send.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="mt-4 rounded-xl bg-flame/15 px-4 py-3 text-sm font-semibold text-white" role="alert">
+                Sorry, your order didn&apos;t send. Please try again, or email it to {SITE.email} or WhatsApp {SITE.phone.display}.
+              </p>
+            )}
             <p className="mt-3 text-xs leading-relaxed text-white/60">
               Vector files are best. {ARTWORK_RESPONSIBILITY}{" "}
               <a href="#artwork" className="font-semibold text-sun underline underline-offset-2">Artwork requirements</a>
             </p>
-            {sent && (
-              <p className="mt-4 rounded-xl bg-leaf/15 px-4 py-3 text-sm font-semibold text-leaf" role="status">
-                WhatsApp opened. Don&apos;t forget to attach your gang sheet!
-              </p>
-            )}
           </div>
         </div>
       </aside>

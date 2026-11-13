@@ -40,6 +40,11 @@ export default function Footer() {
                 <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
               </a>
             </li>
+            <li>
+              <a href={`mailto:${SITE.email}`} className="inline-flex items-center gap-2 hover:text-sun">
+                <Icon name="mail" className="h-4 w-4" /> {SITE.email}
+              </a>
+            </li>
           </ul>
         </div>
       </div>

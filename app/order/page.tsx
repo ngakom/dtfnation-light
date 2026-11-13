@@ -17,7 +17,7 @@ export default function OrderPage() {
         <div className="mx-auto max-w-7xl px-5 py-16 lg:px-10 lg:py-20">
           <p className="eyebrow">Order DTF prints</p>
           <h1 className="display mt-4 text-5xl sm:text-7xl">Order your prints.</h1>
-          <p className="mt-5 max-w-2xl text-lg text-muted">Choose your meters, see your price instantly, and send your gang sheet straight to us.</p>
+          <p className="mt-5 max-w-2xl text-lg text-muted">Choose your meters, see your price instantly, then email us your gang sheet.</p>
         </div>
       </section>
 
@@ -50,6 +50,9 @@ export default function OrderPage() {
             </a>
             <a href={`tel:${SITE.phone.tel}`} className="btn-outline-ink">
               <Icon name="phone" className="h-4 w-4" /> {SITE.phone.display}
+            </a>
+            <a href={`mailto:${SITE.email}`} className="btn-outline-ink">
+              <Icon name="mail" className="h-4 w-4" /> {SITE.email}
             </a>
           </div>
         </div>
