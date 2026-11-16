@@ -75,7 +75,7 @@ export default function ChatWidget() {
             <div className="flex-1">
               <p className="text-base font-extrabold text-white">DTF Nation Assistant</p>
               <p className="flex items-center gap-1.5 text-[11px] text-white/70">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Online · AI powered
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Online · Instant answers
               </p>
             </div>
             <button
