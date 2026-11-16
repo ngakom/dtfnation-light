@@ -5,9 +5,9 @@ import Icon from "./Icon";
 import { PROVINCES, pointsIn, type Province } from "@/lib/collection-points";
 import { ARTWORK_RESPONSIBILITY, PRICE_TIERS, SHEET, SITE, priceFor, rand } from "@/lib/site";
 
-// Web3Forms delivers orders to the inbox the access key was created for (sales@dtfnation.co.za).
+// Web3Forms delivers orders to the inbox the access key was created for (sales@dtfnation.co.za, set up 2026-11-16).
 // The key is public by design. Without one, the form opens the customer's email app instead.
-const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "193b3ed5-4ee7-480b-9408-f023014e3a06";
 
 const mailto = (subject: string, body: string) =>
   `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
