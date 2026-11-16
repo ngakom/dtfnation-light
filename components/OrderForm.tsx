@@ -37,7 +37,8 @@ export default function OrderForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const form = e.currentTarget;
+    const d = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const ref = orderNumber();
     const subject = `New order ${ref}: ${meters} m – ${d.business || d.name}`;
     const lines = [
@@ -73,6 +74,7 @@ export default function OrderForm() {
       });
       const result = await res.json();
       if (!res.ok || !result.success) throw new Error(result.message);
+      form.reset();
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -211,6 +213,18 @@ export default function OrderForm() {
                 <a href={artworkLink} className="btn-sun mt-4 w-full">
                   <Icon name="mail" className="h-5 w-5" /> Email my artwork
                 </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMeters(1);
+                    setDelivery("courier");
+                    setProvince("Gauteng");
+                    setStatus("idle");
+                  }}
+                  className="mt-4 w-full text-center text-sm font-semibold text-white/70 underline underline-offset-2 hover:text-white"
+                >
+                  Place another order
+                </button>
               </div>
             ) : (
               <>
