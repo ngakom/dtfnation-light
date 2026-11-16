@@ -70,7 +70,8 @@ export default function OrderForm() {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: "DTF Nation website", replyto: d.email, message }),
+        // botcheck is a hidden honeypot: people never tick it, spam bots do, and Web3Forms then drops the submission.
+        body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: "DTF Nation website", replyto: d.email, message, botcheck: !!d.botcheck }),
       });
       const result = await res.json();
       if (!res.ok || !result.success) throw new Error(result.message);
@@ -184,6 +185,7 @@ export default function OrderForm() {
               <label htmlFor="notes" className={label}>Notes</label>
               <textarea id="notes" name="notes" rows={3} className={field} placeholder="Anything we should know about your order?" />
             </div>
+            <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
           </div>
         </fieldset>
       </div>
