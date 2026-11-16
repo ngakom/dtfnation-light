@@ -37,14 +37,15 @@ Rules:
 - Use only the facts above. Never invent prices, cut-off times, courier fees, collection point addresses or delivery times. For anything not listed, say the team will confirm and give the contact details.
 - Stay on DTF Nation topics; politely decline unrelated requests.`;
 
+// First match wins, so the more specific topics come first ("dtf" appears in many questions).
 const FAQ: { keywords: string[]; answer: string }[] = [
+  {
+    keywords: ["artwork", "file", "png", "vector", "dpi", "resolution", "send", "upload", "ai-generated", "ai generated"],
+    answer: `${ARTWORK.join(" ")} ${ARTWORK_NOTES.map((n) => n.text).join(" ")} ${ARTWORK_RESPONSIBILITY} Email your gang sheet to ${SITE.email} with your order number after placing your order.`,
+  },
   {
     keywords: ["price", "cost", "how much", "meter", "metre", "rate", "discount", "bulk"],
     answer: `Our gang sheets are ${SHEET.widthMm} mm wide, priced per meter: ${PRICE_TIERS.map((t) => `${t.label} ${rand(t.price)}`).join(", ")}. The more you order, the less you pay per meter.`,
-  },
-  {
-    keywords: ["gang sheet", "gang", "what is dtf", "dtf"],
-    answer: FAQS[1].a + " " + FAQS[0].a,
   },
   {
     keywords: ["same day", "same-day", "fast", "how long", "turnaround", "when"],
@@ -55,16 +56,16 @@ const FAQ: { keywords: string[]; answer: string }[] = [
     answer: FAQS[4].a,
   },
   {
-    keywords: ["artwork", "file", "png", "vector", "dpi", "resolution", "send", "upload", "ai-generated", "ai generated"],
-    answer: `${ARTWORK.join(" ")} ${ARTWORK_NOTES.map((n) => n.text).join(" ")} ${ARTWORK_RESPONSIBILITY} Email your gang sheet to ${SITE.email} with your order number after placing your order.`,
-  },
-  {
     keywords: ["order", "buy", "start"],
     answer: `Go to the Order page, choose your meters and delivery option, and press "Send order". Then email your gang sheet to ${SITE.email} with your order number.`,
   },
   {
     keywords: ["contact", "phone", "call", "whatsapp", "number", "email"],
     answer: `You can reach ${SITE.contactPerson} on ${SITE.phone.display} (calls and WhatsApp) or email ${SITE.email}.`,
+  },
+  {
+    keywords: ["gang sheet", "gang", "what is dtf", "dtf"],
+    answer: FAQS[1].a + " " + FAQS[0].a,
   },
 ];
 
