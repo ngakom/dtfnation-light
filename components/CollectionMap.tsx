@@ -19,6 +19,12 @@ const FILL: Record<Province, string> = {
   Mpumalanga: "var(--flame)",
 };
 
+// Label positions that sit better than the generated centroids (map units, text baseline).
+const LABEL_AT: Partial<Record<Province, { x: number; y: number }>> = {
+  "Western Cape": { x: 262, y: 800 },
+  Mpumalanga: { x: 812, y: 308 },
+};
+
 export default function CollectionMap() {
   const [selected, setSelected] = useState<Province>("Gauteng");
   const points = pointsIn(selected);
@@ -52,11 +58,11 @@ export default function CollectionMap() {
           {PROVINCE_SHAPES.map((p) => (
             <text
               key={`${p.name}-label`}
-              x={p.label.x}
-              y={p.label.y}
+              x={LABEL_AT[p.name as Province]?.x ?? p.label.x}
+              y={LABEL_AT[p.name as Province]?.y ?? p.label.y}
               textAnchor="middle"
               className="pointer-events-none select-none font-sans font-bold"
-              fontSize={p.name === "Gauteng" ? 16 : p.name === "Mpumalanga" || p.name === "KwaZulu-Natal" ? 18 : 24}
+              fontSize={p.name === "Gauteng" ? 16 : p.name === "Mpumalanga" ? 17 : p.name === "KwaZulu-Natal" ? 18 : 24}
               fill="#0d1117"
             >
               {p.name}
