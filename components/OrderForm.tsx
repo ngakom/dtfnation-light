@@ -60,7 +60,7 @@ export default function OrderForm() {
     setOrder(ref);
 
     if (!WEB3FORMS_KEY) {
-      window.location.href = mailto(subject, `${message}\n\nI've attached my print-ready gang sheet.`);
+      window.location.assign(mailto(subject, `${message}\n\nI've attached my print-ready gang sheet.`));
       setStatus("mailto");
       return;
     }
